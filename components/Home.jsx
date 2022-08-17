@@ -10,7 +10,7 @@ const Home = ({navigation}) => {
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>CHOOSE YOUR FAVOURITE CUPCAKE!</Text>
       </View>
-      <TouchableOpacity onPress={()=>navigation.navigate('Menu')}
+      <TouchableOpacity onPress={()=>navigation.navigate('List')}
                         style={styles.button}>
         <View>
           <Text style={styles.buttonText}>Let's Start</Text>
