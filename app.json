@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "FollowCupcakesApp",
+    "slug": "FollowCupcakesApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "FollowCupcakesApp"
+}
