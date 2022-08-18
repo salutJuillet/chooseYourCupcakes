@@ -5,10 +5,11 @@ import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity } from 'r
 const Home = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require('../assets/images/cc_catering_cupcakes.png')}
-             style={styles.image} />
+      <Image source={require('../assets/images/cc_three_cupcakes.png')}
+             style={styles.cupcakeImage} />
       <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>CHOOSE YOUR FAVOURITE CUPCAKE!</Text>
+      <Image source={require('../assets/images/title.png')}
+             style={styles.titleImage} />
       </View>
       <TouchableOpacity onPress={()=>navigation.navigate('List')}
                         style={styles.button}>
@@ -26,17 +27,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#e795bb',
     alignItems: 'center'
   },
-  image:{
-    width:80,
+  cupcakeImage:{
+    width:100,
     height:76,
-    marginTop:150
+    marginTop:170
   },
   titleContainer:{
     marginTop:5,
     marginBottom:30
   },
-  titleText:{
-    fontSize:25
+  titleImage:{
+    width:350,
+    height:70
   },
   button:{
     backgroundColor:'#1553a3',
