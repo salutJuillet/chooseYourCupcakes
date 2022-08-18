@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity } from 'react-native';
+import * as Font from 'expo-font'
 
 
 const Home = ({navigation}) => {
+
+  const [isFontReady, setIsFontReady] = useState(false);
+  useEffect(() => {
+    Font.loadAsync({
+      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
+      "SUNN Line Free Bold": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
+    });
+    setIsFontReady(true);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Image source={require('../assets/images/cc_three_cupcakes.png')}
@@ -33,7 +44,7 @@ const styles = StyleSheet.create({
     marginTop:170
   },
   titleContainer:{
-    marginTop:5,
+    marginTop:20,
     marginBottom:30
   },
   titleImage:{
@@ -43,12 +54,14 @@ const styles = StyleSheet.create({
   button:{
     backgroundColor:'#1553a3',
     paddingVertical:7,
-    paddingHorizontal:20
+    paddingHorizontal:20,
+    elevation:4
   },
   buttonText:{
     color:'#fff',
-    fontWeight:'600',
-    fontSize:30
+    fontWeight:'bold',
+    fontSize:30,
+    fontFamily:'SUNN Line Free'
   }
 });
 
