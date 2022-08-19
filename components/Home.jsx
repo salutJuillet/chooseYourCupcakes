@@ -1,15 +1,49 @@
-import React, {useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect, useRef } from 'react';
+import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity, Easing, Animated } from 'react-native';
 import * as Font from 'expo-font'
 
 
 const Home = ({navigation}) => {
 
+  const verticalValue = useRef(new Animated.Value(0)).current;
+  const float = () => {
+    Animated.loop(
+      Animated.timing(verticalValue, {
+        toValue:10,
+        duration:600,
+        easing:Easing.inOut(Easing.quad),
+        useNativeDriver: true
+      })
+    ).start();
+  }
+
+  useEffect(()=>{
+    float();
+    verticalValue.addListener(({value}) => {
+      if(value == 10) {
+        Animated.timing(verticalValue, {
+          toValue:0,
+          duration:600,
+          easing: Easing.inOut((Easing.quad)),
+          useNativeDriver: true
+        }).start();
+      }
+      if(value == 0) {
+        Animated.timing(verticalValue, {
+          toValue:10,
+          duration:600,
+          easing: Easing.inOut((Easing.quad)),
+          useNativeDriver: true
+        }).start();
+      }
+    })
+  })
+
   const [isFontReady, setIsFontReady] = useState(false);
   useEffect(() => {
     Font.loadAsync({
-      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
-      "SUNN Line Free Bold": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
+      // "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
+      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
     });
     setIsFontReady(true);
   }, []);
@@ -18,10 +52,13 @@ const Home = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <Image source={require('../assets/images/cc_three_cupcakes.png')}
              style={styles.cupcakeImage} />
-      <View style={styles.titleContainer}>
-      <Image source={require('../assets/images/title.png')}
-             style={styles.titleImage} />
-      </View>
+      <Animated.Image source={require('../assets/images/title.png')}
+                      style={[styles.titleImage, {
+                        top:250,
+                        transform: [{
+                          translateY: verticalValue
+                        }]
+                      }]} />
       <TouchableOpacity onPress={()=>navigation.navigate('List')}
                         style={styles.button}>
         <View>
@@ -43,19 +80,17 @@ const styles = StyleSheet.create({
     height:76,
     marginTop:170
   },
-  titleContainer:{
-    marginTop:20,
-    marginBottom:30
-  },
   titleImage:{
     width:350,
-    height:70
+    height:70,
+    position:'absolute',
   },
   button:{
     backgroundColor:'#1553a3',
     paddingVertical:7,
     paddingHorizontal:20,
-    elevation:4
+    elevation:4,
+    marginTop:95
   },
   buttonText:{
     color:'#fff',
