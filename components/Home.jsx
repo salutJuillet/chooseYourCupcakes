@@ -24,7 +24,7 @@ const Home = ({navigation}) => {
         Animated.timing(verticalValue, {
           toValue:0,
           duration:600,
-          easing: Easing.inOut((Easing.quad)),
+          easing: Easing.inOut(Easing.quad),
           useNativeDriver: true
         }).start();
       }
@@ -32,7 +32,7 @@ const Home = ({navigation}) => {
         Animated.timing(verticalValue, {
           toValue:10,
           duration:600,
-          easing: Easing.inOut((Easing.quad)),
+          easing: Easing.inOut(Easing.quad),
           useNativeDriver: true
         }).start();
       }
@@ -50,15 +50,15 @@ const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require('../assets/images/cc_three_cupcakes.png')}
-             style={styles.cupcakeImage} />
-      <Animated.Image source={require('../assets/images/title.png')}
-                      style={[styles.titleImage, {
-                        top:250,
-                        transform: [{
-                          translateY: verticalValue
-                        }]
-                      }]} />
+      <Animated.Image source={require('../assets/images/cc_three_cupcakes.png')}
+                      style={[styles.cupcakeImage, {
+                          transform: [{
+                            translateY: verticalValue
+                          }]
+                        }
+                      ]} />
+      <Image source={require('../assets/images/title.png')}
+                      style={styles.titleImage} />
       <TouchableOpacity onPress={()=>navigation.navigate('List')}
                         style={styles.button}>
         <View>
@@ -76,28 +76,29 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   cupcakeImage:{
-    width:100,
-    height:76,
-    marginTop:170
+    width:200,
+    height:152,
+    position:'absolute',
+    top:110,
   },
   titleImage:{
     width:350,
     height:70,
-    position:'absolute',
+    marginTop:275
   },
   button:{
     backgroundColor:'#1553a3',
     paddingVertical:7,
     paddingHorizontal:20,
     elevation:4,
-    marginTop:95
+    marginTop:20
   },
   buttonText:{
     color:'#fff',
     fontWeight:'bold',
     fontSize:30,
     fontFamily:'SUNN Line Free'
-  }
+  },
 });
 
 export default Home
