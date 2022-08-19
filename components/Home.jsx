@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity, Easing, Animated } from 'react-native';
-import * as Font from 'expo-font'
+import * as Font from "expo-font";
 
 
 const Home = ({navigation}) => {
 
+  /***** floating animation *****/
   const verticalValue = useRef(new Animated.Value(0)).current;
   const float = () => {
     Animated.loop(
@@ -39,15 +40,17 @@ const Home = ({navigation}) => {
     })
   })
 
+  /***** custom Fonts *****/
   const [isFontReady, setIsFontReady] = useState(false);
   useEffect(() => {
     Font.loadAsync({
-      // "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
-      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
+      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
+      // "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
     });
     setIsFontReady(true);
   }, []);
 
+  
   return (
     <SafeAreaView style={styles.container}>
       <Animated.Image source={require('../assets/images/cc_three_cupcakes.png')}
