@@ -50,7 +50,7 @@ const Home = ({navigation}) => {
     setIsFontReady(true);
   }, []);
 
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <Animated.Image source={require('../assets/images/cc_three_cupcakes.png')}
@@ -62,12 +62,16 @@ const Home = ({navigation}) => {
                       ]} />
       <Image source={require('../assets/images/title.png')}
                       style={styles.titleImage} />
-      <TouchableOpacity onPress={()=>navigation.navigate('List')}
-                        style={styles.button}>
-        <View>
-          <Text style={styles.buttonText}>Let's Start</Text>
-        </View>
-      </TouchableOpacity>
+      {
+        isFontReady && (
+            <TouchableOpacity onPress={()=>navigation.navigate('List')}
+                              style={styles.button}>
+              <View>
+                <Text style={styles.buttonText}>Let's Start</Text>
+              </View>
+            </TouchableOpacity>
+        )
+      }
     </SafeAreaView>
   );
 }
