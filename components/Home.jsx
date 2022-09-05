@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity, Easing, Animated } from 'react-native';
 import * as Font from "expo-font";
+// import Text from './DefaultText'
 
 
 const Home = ({navigation}) => {
@@ -42,11 +43,13 @@ const Home = ({navigation}) => {
 
   /***** custom Fonts *****/
   const [isFontReady, setIsFontReady] = useState(false);
-  useEffect(() => {
-    Font.loadAsync({
-      "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Regular.otf'),
-      // "SUNN Line Free": require('../assets/fonts/SUNN-Line-Free-Bold.otf')
+  const getFonts = async () => {
+    await Font.loadAsync({
+      "SUNNLineFree": require('../assets/fonts/SUNNLineFreeRegular.ttf'),
     });
+  }
+  useEffect(()=>{
+    getFonts();
     setIsFontReady(true);
   }, []);
 
@@ -104,7 +107,6 @@ const styles = StyleSheet.create({
     color:'#fff',
     fontWeight:'bold',
     fontSize:30,
-    fontFamily:'SUNN Line Free'
   },
 });
 
