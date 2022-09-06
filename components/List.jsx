@@ -1,38 +1,46 @@
 import React from 'react'
-import { SafeAreaView, ScrollView, SectionList, View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native'
 
 const List = ({navigation}) => {
 
   const LIST = [
     {
       title:'Cupcakes',
-      lists:['Red Velvet', 'Devil', 'Classic Vanilla', 'Raspberry Cinnamon', 'Mint Chocolate', 'Blueberry White Chocolate'],
-      img:['RedVelvet.png', 'Devil.png', 'ClassicVanilla.png', 'RasberryCinnamon.png', 'MintChocolate.png', 'BlueberryWhiteChocolate.png']
+      list:['Red Velvet', 'Devil', 'Classic Vanilla', 'Raspberry Cinnamon', 'Mint Chocolate', 'Blueberry White Chocolate']
     },
     {
       title:'Cakes',
-      lists:['Black Forest'],
-      img:['BlackForest.png']
+      list:['Black Forest']
     }
   ]
 
-  const Item = ({title}) => {
-    // const {title, lists, img } = item;
-    <View style={styles.cupcakeContainer}>
-      {/* <Image source={require(`../assets/images/${img}`)} style={styles.cupcake} />
-      <Text>{lists}</Text> */}
-      <Text>{title}</Text>
-    </View>
-  }
+  const Item = ({items}) => (
+      items.list.map(i => {
+        const imageName = i.split(' ').join('');
+        const image = `require('../assets/images/${imageName}.png')`;
+        console.log(image);
+        return(
+          <View key={i}>
+            <Image source={image} />
+            <Text>{i}</Text>
+          </View>
+        )
+      })
+  )
+
 
   return (
     <SafeAreaView>
-      <SectionList sections={LIST}
-                   keyExtractor={(item, index) => item + index}
-                   renderItem={({item}) => <Item title={item} />}
-                   renderSectionHeader={({section:{title}}) => (
-                    <Text style={styles.header}>{title}</Text>
-                   )} />
+      <ScrollView>
+        {
+          LIST.map(category => (
+            <View key={category.title}>
+              <Text>{category.title}</Text>
+              <Item items={category} />
+            </View>
+          ))
+        }
+      </ScrollView>
         
         {/* <Button title='back to Home' onPress={()=>navigation.navigate('Home')} /> */}
     </SafeAreaView>
