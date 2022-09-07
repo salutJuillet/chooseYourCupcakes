@@ -20,10 +20,10 @@ const List = ({navigation}) => {
         const image = `require('../assets/images/${imageName}.png')`;
         console.log(image);
         return(
-          <View key={i}>
+          <TouchableOpacity key={i}>
             <Image source={image} />
             <Text>{i}</Text>
-          </View>
+          </TouchableOpacity>
         )
       })
   )
@@ -35,7 +35,7 @@ const List = ({navigation}) => {
         {
           LIST.map(category => (
             <View key={category.title}>
-              <Text>{category.title}</Text>
+              <Text style={styles.categoryText}>{category.title}</Text>
               <Item items={category} />
             </View>
           ))
@@ -48,9 +48,9 @@ const List = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  header:{},
-  cupcakeContainer:{},
-  cupcake:{},
+  categoryText:{
+    fontSize:26
+  }
 })
 
 export default List
