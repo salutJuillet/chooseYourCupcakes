@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity, Easing, Animated } from 'react-native';
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
+import Statusbar from './Statusbar';
 // import Text from './DefaultText'
 
 
@@ -42,20 +43,17 @@ const Home = ({navigation}) => {
   })
 
   /***** custom Fonts *****/
-  const [isFontReady, setIsFontReady] = useState(false);
-  const getFonts = async () => {
-    await Font.loadAsync({
-      "SUNNLineFree": require('../assets/fonts/SUNNLineFreeRegular.ttf'),
-    });
+  const [fontsLoaded] = useFonts({
+    'SUNN Line Free': require('../assets/fonts/SUNNLineFreeRegular.ttf')
+  })
+  if(!fontsLoaded){
+    return null
   }
-  useEffect(()=>{
-    getFonts();
-    setIsFontReady(true);
-  }, []);
 
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* <Statusbar /> */}
       <Animated.Image source={require('../assets/images/cc_three_cupcakes.png')}
                       style={[styles.cupcakeImage, {
                           transform: [{
@@ -66,7 +64,7 @@ const Home = ({navigation}) => {
       <Image source={require('../assets/images/title.png')}
                       style={styles.titleImage} />
       {
-        isFontReady && (
+        fontsLoaded && (
             <TouchableOpacity onPress={()=>navigation.navigate('List')}
                               style={styles.button}>
               <View>
@@ -107,6 +105,7 @@ const styles = StyleSheet.create({
     color:'#fff',
     fontWeight:'bold',
     fontSize:30,
+    fontFamily:'SUNN Line Free'
   },
 });
 
