@@ -11,7 +11,8 @@ import Cart from './components/Cart';
 
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const MenuStack = createNativeStackNavigator();
+const OrderStack = createNativeStackNavigator();
 
 
 
@@ -28,15 +29,15 @@ export default function App() {
           <Tab.Screen name='Menu'
                       options={{
                         tabBarIcon:({color}) => (
-                          <MaterialCommunityIcons name="cupcake" size={26} color={color} />
+                          <MaterialCommunityIcons name="cupcake" size={30} color={color} />
                         )
                       }}>
             {
               () => (
-                <Stack.Navigator>
-                  <Stack.Screen name='Home' component={Home} options={{headerShown:false}} />
-                  <Stack.Screen name='List' component={List} />
-                </Stack.Navigator>
+                <MenuStack.Navigator>
+                  <MenuStack.Screen name='Home' component={Home} options={{headerShown:false}} />
+                  <MenuStack.Screen name='List' component={List} />
+                </MenuStack.Navigator>
               )
             }
           </Tab.Screen>
@@ -44,15 +45,15 @@ export default function App() {
           <Tab.Screen name='Order'
                       options={{
                         tabBarIcon:({color}) => (
-                          <MaterialCommunityIcons name="book-open-variant" size={26} color={color} />
+                          <MaterialCommunityIcons name="book-open-variant" size={30} color={color} />
                         )
                       }}>
             {
               () => (
-                <Stack.Navigator>
-                  <Stack.Screen name='OrderPage' component={OrderPage} />
-                  <Stack.Screen name='Cart' component={Cart} />
-                </Stack.Navigator>
+                <OrderStack.Navigator>
+                  <OrderStack.Screen name='OrderPage' component={OrderPage} />
+                  <OrderStack.Screen name='Cart' component={Cart} />
+                </OrderStack.Navigator>
               )
             }
           </Tab.Screen>
