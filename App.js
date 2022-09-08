@@ -24,18 +24,13 @@ export default function App() {
                         tabBarActiveTintColor:'#fef7ea',
                         tabBarBackground:()=>(
                           <View style={{backgroundColor:'#1553a3', flex:1}} />
-                        ),
-                        tabBarStyle:{height:70}
+                        )
                        }}>
           <Tab.Screen name='Menu'
                       options={{
                         tabBarIcon:({color}) => (
                           <MaterialCommunityIcons name="cupcake" size={30} color={color} />
-                        ),
-                        tabBarLabelStyle:{
-                          position:'absolute',
-                          top:55
-                        }
+                        )
                       }}>
             {
               () => (
@@ -51,11 +46,7 @@ export default function App() {
                       options={{
                         tabBarIcon:({color}) => (
                           <MaterialCommunityIcons name="book-open-variant" size={30} color={color} />
-                        ),
-                        tabBarLabelStyle:{
-                          position:'absolute',
-                          top:55
-                        }
+                        )
                       }}>
             {
               () => (
