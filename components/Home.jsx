@@ -10,12 +10,6 @@ const Home = ({navigation}) => {
   const verticalValue = useRef(new Animated.Value(0)).current;
   const float = () => {
     Animated.loop(
-      // Animated.timing(verticalValue, {
-    //     toValue:10,
-    //     duration:600,
-    //     easing:Easing.inOut(Easing.quad),
-    //     useNativeDriver: true
-    //   })
       Animated.sequence([
         Animated.timing(verticalValue, {
           toValue:1,
@@ -35,24 +29,6 @@ const Home = ({navigation}) => {
 
   useEffect(()=>{
     float();
-    // verticalValue.addListener(({value}) => {
-    //   if(value == 10) {
-    //     Animated.timing(verticalValue, {
-    //       toValue:0,
-    //       duration:600,
-    //       easing: Easing.inOut(Easing.quad),
-    //       useNativeDriver: true
-    //     }).start();
-    //   }
-    //   if(value == 0) {
-    //     Animated.timing(verticalValue, {
-    //       toValue:10,
-    //       duration:600,
-    //       easing: Easing.inOut(Easing.quad),
-    //       useNativeDriver: true
-    //     }).start();
-    //   }
-    // })
   }, [verticalValue])
 
   const floating = verticalValue.interpolate({
