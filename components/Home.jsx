@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef } from 'react';
 import { StyleSheet, SafeAreaView, Image, Text, View, TouchableOpacity, Easing, Animated } from 'react-native';
 import { useFonts } from "expo-font";
-import Statusbar from './Statusbar';
 // import Text from './DefaultText'
 
 
@@ -11,35 +10,54 @@ const Home = ({navigation}) => {
   const verticalValue = useRef(new Animated.Value(0)).current;
   const float = () => {
     Animated.loop(
-      Animated.timing(verticalValue, {
-        toValue:10,
-        duration:600,
-        easing:Easing.inOut(Easing.quad),
-        useNativeDriver: true
-      })
+      // Animated.timing(verticalValue, {
+    //     toValue:10,
+    //     duration:600,
+    //     easing:Easing.inOut(Easing.quad),
+    //     useNativeDriver: true
+    //   })
+      Animated.sequence([
+        Animated.timing(verticalValue, {
+          toValue:1,
+          duration:700,
+          easing:Easing.inOut(Easing.quad),
+          useNativeDriver:true  
+        }),
+        Animated.timing(verticalValue, {
+          toValue:2,
+          duration:700,
+          easing:Easing.inOut(Easing.quad),
+          useNativeDriver:true
+        })
+      ])
     ).start();
   }
 
   useEffect(()=>{
     float();
-    verticalValue.addListener(({value}) => {
-      if(value == 10) {
-        Animated.timing(verticalValue, {
-          toValue:0,
-          duration:600,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true
-        }).start();
-      }
-      if(value == 0) {
-        Animated.timing(verticalValue, {
-          toValue:10,
-          duration:600,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true
-        }).start();
-      }
-    })
+    // verticalValue.addListener(({value}) => {
+    //   if(value == 10) {
+    //     Animated.timing(verticalValue, {
+    //       toValue:0,
+    //       duration:600,
+    //       easing: Easing.inOut(Easing.quad),
+    //       useNativeDriver: true
+    //     }).start();
+    //   }
+    //   if(value == 0) {
+    //     Animated.timing(verticalValue, {
+    //       toValue:10,
+    //       duration:600,
+    //       easing: Easing.inOut(Easing.quad),
+    //       useNativeDriver: true
+    //     }).start();
+    //   }
+    // })
+  }, [verticalValue])
+
+  const floating = verticalValue.interpolate({
+    inputRange:[0, 1, 2],
+    outputRange:[-5, 5, -5]
   })
 
   /***** custom Fonts *****/
@@ -53,11 +71,10 @@ const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Statusbar /> */}
       <Animated.Image source={require('../assets/images/cc_three_cupcakes.png')}
                       style={[styles.cupcakeImage, {
                           transform: [{
-                            translateY: verticalValue
+                            translateY: floating
                           }]
                         }
                       ]} />
