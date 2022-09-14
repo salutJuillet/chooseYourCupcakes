@@ -6,23 +6,36 @@ const List = ({navigation}) => {
   const LIST = [
     {
       title:'Cupcakes',
-      list:['Red Velvet', 'Devil', 'Classic Vanilla', 'Raspberry Cinnamon', 'Mint Chocolate', 'Blueberry White Chocolate']
+      list:[
+        {name:'Red Velvet', price:'2.95'},
+        {name:'Devil', price:'3.00'},
+        {name:'Classic Vanilla', price:'2.80'},
+        {name:'Raspberry Cinnamon', price:'2.95'},
+        {name:'Mint Chocolate', price:'2.80'},
+        {name:'Blueberry White Chocolate', price:'2.95'}
+      ]
     },
     {
       title:'Cakes',
-      list:['Black Forest']
+      list:[
+        {name:'Black Forest', price:'39.00'}
+      ]
     }
   ]
 
   const Item = ({items}) => (
       items.list.map(i => {
-        const imageName = i.split(' ').join('');
+        const imageName = i.name.split(' ').join('');
         const image = `require('../assets/images/${imageName}.png')`;
         console.log(image);
         return(
-          <TouchableOpacity key={i}>
-            <Image source={image} />
-            <Text>{i}</Text>
+          <TouchableOpacity key={i.name} style={styles.cupcakeContainer}>
+            <Image 
+                source={image} 
+                style={styles.image} 
+            />
+            <Text sytle={styles.menuInfo}>{i.name}</Text>
+            <Text sytle={styles.menuInfo}>{i.price}</Text>
           </TouchableOpacity>
         )
       })
@@ -30,13 +43,15 @@ const List = ({navigation}) => {
 
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{paddingBottom:20}}>
       <ScrollView>
         {
           LIST.map(category => (
-            <View key={category.title}>
-              <Text style={styles.categoryText}>{category.title}</Text>
-              <Item items={category} />
+            <View key={category.title} style={styles.titleContainer}>
+              <Text style={styles.titleText}>{category.title}</Text>
+              <View style={styles.list}>
+                <Item items={category} />
+              </View>
             </View>
           ))
         }
@@ -48,8 +63,34 @@ const List = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  categoryText:{
-    fontSize:26
+  titleContainer:{
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  titleText:{
+    fontSize:26,
+    marginVertical:20,
+    fontWeight:'bold'
+  },
+  list:{
+    flex:1,
+    flexDirection:'row',
+    flexWrap:'wrap',
+    justifyContent:'center'
+  },
+  cupcakeContainer:{
+    justifyContent:'center',
+    alignItems:'center',
+    marginVertical:10,
+    width:200
+  },
+  image:{
+    width:120,
+    height:150,
+  },
+  menuInfo:{
+    marginVertical:5,
+    fontSize:18
   }
 })
 
