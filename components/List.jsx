@@ -1,7 +1,12 @@
-import React from 'react'
-import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import React, {useState} from 'react'
+import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, TouchableOpacity, Button, Modal } from 'react-native'
 
 const List = ({navigation}) => {
+
+  const [showModal, setShwoModal] = useState(false);
+  const pressMenu = () => {
+    setShwoModal(true);
+  }
 
   const LIST = [
     {
@@ -27,18 +32,32 @@ const List = ({navigation}) => {
       items.list.map(i => {
         const imageName = i.name.split(' ').join('');
         const image = `require('../assets/images/${imageName}.png')`;
-        console.log(image);
+        // console.log(image);
         return(
-          <TouchableOpacity key={i.name} style={styles.cupcakeContainer}>
-            <Image 
-                source={image} 
-                style={styles.image} 
-            />
-            <Text sytle={styles.menuInfo}>{i.name}</Text>
-            <Text sytle={styles.menuInfo}>{i.price}</Text>
-          </TouchableOpacity>
+          <>
+            <TouchableOpacity key={i.name} style={styles.cupcakeContainer} onPress={pressMenu}>
+              { image &&  <Image source={image} style={styles.image} /> }            
+              <Text style={styles.menuInfo}>{i.name}</Text>
+              <Text style={styles.menuInfo}>{i.price}</Text>
+            </TouchableOpacity>
+          </>
         )
       })
+  )
+
+  const MenuModal = ({infoName, infoPrice}) => (
+    <Modal animationType='slide' visible={showModal} transparent={true}>
+        <View style={styles.modalContainer}>
+                  <TouchableOpacity>
+                    <Text onPress={()=>setShwoModal(false)}>X</Text>
+                  </TouchableOpacity>
+                  <Image  />
+                  <Text style={styles.menuInfo}>{infoName}</Text>
+                  <Text style={styles.menuInfo}>{infoPrice}</Text>
+                  <Text>-1+</Text>
+                  <Button title='Add to cart' />
+        </View>
+    </Modal>
   )
 
 
@@ -55,9 +74,9 @@ const List = ({navigation}) => {
             </View>
           ))
         }
-      </ScrollView>
+
         
-        {/* <Button title='back to Home' onPress={()=>navigation.navigate('Home')} /> */}
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -89,8 +108,21 @@ const styles = StyleSheet.create({
     height:150,
   },
   menuInfo:{
-    marginVertical:5,
-    fontSize:18
+    fontSize:18,
+    textAlign:'center'
+  },
+  modalContainer:{
+    width:300,
+    height:400, 
+    position: 'absolute',
+    top:'50%',
+    left:'50%',
+    transform: [{translate:[-150, -200]}],
+    backgroundColor:'#fff',
+    elevation:3,
+    borderRadius:8,
+    justifyContent:'center',
+    alignItems:'center'
   }
 })
 
