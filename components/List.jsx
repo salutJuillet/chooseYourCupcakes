@@ -3,9 +3,9 @@ import { SafeAreaView, ScrollView, View, Text, Image, StyleSheet, TouchableOpaci
 
 const List = ({navigation}) => {
 
-  const [showModal, setShwoModal] = useState(false);
-  const pressMenu = () => {
-    setShwoModal(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const showModal = () => {
+    setIsOpen(true);
   }
 
   const LIST = [
@@ -34,28 +34,27 @@ const List = ({navigation}) => {
         const image = `require('../assets/images/${imageName}.png')`;
         // console.log(image);
         return(
-          <>
-            <TouchableOpacity key={i.name} style={styles.cupcakeContainer} onPress={pressMenu}>
-              { image &&  <Image source={image} style={styles.image} /> }            
-              <Text style={styles.menuInfo}>{i.name}</Text>
-              <Text style={styles.menuInfo}>{i.price}</Text>
+            <TouchableOpacity key={'menu-'+i.name} style={styles.cupcakeContainer} onPress={showModal}>
+              <Image key={'i'+i.name} source={image} style={styles.image} />        
+              <Text style={styles.menuInfo} key={i.name}>{i.name}</Text>
+              <Text style={styles.menuInfo} key={'p'+i.name}>{i.price}</Text>
             </TouchableOpacity>
-          </>
         )
       })
   )
 
   const MenuModal = ({infoName, infoPrice}) => (
-    <Modal animationType='slide' visible={showModal} transparent={true}>
+    <Modal animationType='slide' visible={isOpen} transparent={true}>
         <View style={styles.modalContainer}>
-                  <TouchableOpacity>
-                    <Text onPress={()=>setShwoModal(false)}>X</Text>
-                  </TouchableOpacity>
-                  <Image  />
-                  <Text style={styles.menuInfo}>{infoName}</Text>
-                  <Text style={styles.menuInfo}>{infoPrice}</Text>
-                  <Text>-1+</Text>
-                  <Button title='Add to cart' />
+            <TouchableOpacity>
+                <Text onPress={()=>setIsOpen(false)}>X</Text>
+            </TouchableOpacity>
+            <Image  />
+            <Text style={styles.menuInfo}>{infoName}</Text>
+            <Text style={styles.menuInfo}>{infoPrice}</Text>
+            <Text>-1+</Text>
+
+            <Button title='Add to cart' />
         </View>
     </Modal>
   )
@@ -75,7 +74,7 @@ const List = ({navigation}) => {
           ))
         }
 
-        
+      
       </ScrollView>
     </SafeAreaView>
   )
